@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/lobby.html", "destination": "/lobby.html" },
+    { "source": "/world.html", "destination": "/world.html" },
+    { "source": "/rooms.html", "destination": "/rooms.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
