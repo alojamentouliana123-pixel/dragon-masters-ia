@@ -4,6 +4,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithRedirect,
+  getRedirectResult,
+  browserPopupRedirectResolver,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -36,10 +38,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
+auth.useDeviceLanguage();
+
+auth.settings = {
+  popupRedirectResolver: browserPopupRedirectResolver
+};
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export {
+  getRedirectResult,
+browserPopupRedirectResolver,
   signInWithRedirect,
   getRedirectResult,
   signInAnonymously,
