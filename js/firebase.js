@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import {
   getAuth,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -40,7 +40,7 @@ export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
 export {
-  signInWithPopup,
+  signInWithRedirect,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
