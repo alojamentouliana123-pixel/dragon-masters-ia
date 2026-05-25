@@ -41,6 +41,7 @@ export const googleProvider = new GoogleAuthProvider();
 
 export {
   signInWithRedirect,
+  getRedirectResult,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -58,3 +59,4 @@ export {
   getDoc,
   serverTimestamp
 };
+  

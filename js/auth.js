@@ -1,8 +1,8 @@
 import {
   auth, db, googleProvider,
-  signInWithPopup, signInAnonymously,
+  signInWithRedirect, getRedirectResult, signInAnonymously,
   createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  doc, setDoc, serverTimestamp
+  doc, setDoc, getDoc, serverTimestamp
 } from "./firebase.js";
 
 const statusText = document.getElementById("statusText");
@@ -13,21 +13,25 @@ const guestNameInput = document.getElementById("guestName");
 
 function status(msg){ statusText.textContent = msg; }
 
-async function savePlayer(user, chosenName = "") {
-  const name = chosenName || user.displayName || user.email || "Jogador";
-  await setDoc(doc(db, "players", user.uid), {
-    uid: user.uid,
-    accountName: name,
-    email: user.email || "",
-    photoURL: user.photoURL || "",
-    provider: user.providerData[0]?.providerId || "anonymous",
-    updatedAt: serverTimestamp()
-  }, { merge: true });
+adocument.getElementById("googleLoginBtn").addEventListener("click", async () => {
+  try {
+    status("Entrando com Google...");
+    await signInWithRedirect(auth, googleProvider);
+  } catch (error) {
+    console.error(error);
+    status("Erro no Google.");
+  }
+});
 
-  localStorage.setItem("playerUid", user.uid);
-  localStorage.setItem("accountName", name);
-  window.location.href = "./lobby.html";
-}
+getRedirectResult(auth)
+  .then(async (result) => {
+    if (result?.user) {
+      await savePlayer(result.user);
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
 document.getElementById("googleLoginBtn").addEventListener("click", async () => {
   try {
